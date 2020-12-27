@@ -1,33 +1,43 @@
-package a01563679;
+package a01404526;
 
-import java.math.*;
+import java.math.BigDecimal;
+
 
 public enum Sports {
-ARCHERY,
-BASKETBALL,
-CLIMBING {
-	//due to additional insurance fees , getFeeFactor () returns 1.2
+	ARCHERY(1), 
+	BASKETBALL(1.2), 
+	CLIMBING(1), 
+	DIVING(1.8), 
+	FOOTBALL(1), 
+	GOLF(2.1), 
+	HANDBALL(1), 
+	HOCKEY(1), 
+	MOUNTAINBIKING(1), 
+	PARKOUR(1);
+	
+	final private double factor;
 
-},
-DIVING {
-	// due to renting equipment and insurance , getFeeFactor () returns 1.8
-	} ,
-	FOOTBALL ,
-	GOLF {
-	// due to additional fees for the golf course , getFeeFactor () returns 2.1
-	} ,
-	HANDBALL ,
-	HOCKEY ,
-	MOUNTAINBIKING ,
-	PARKOUR ;
-	public BigDecimal getFeeFactor () {
-		return null;/* default : 1.0 */}
-	public BigDecimal getFee ( BigDecimal feePerSports ) {
-		return feePerSports;
-	// calculate fees depending on sport club â€™s feePerSports * feeFactor
+	private Sports(double factor) {
+		if(factor < 0) {
+				throw new IllegalArgumentException("Factor is not available!");
+		}
+		this.factor = factor;
 	}
 
+	public BigDecimal getFeeFactor()
+	{
+		return BigDecimal.valueOf(factor);
+		/* default : 1.0 */
+	}
+	
+	
+	public BigDecimal getFee ( BigDecimal feePerSports ) 
+	{
+		return feePerSports.multiply(BigDecimal.valueOf(factor));
+	// calculate fees depending on sport club ’s feePerSports *feeFactor
+	}
 
+	
 
-
+	
 }
