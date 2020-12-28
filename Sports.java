@@ -4,18 +4,19 @@ import java.math.BigDecimal;
 
 
 public enum Sports {
-	ARCHERY(1), 
+	ARCHERY(1.0), 
 	BASKETBALL(1.2), 
-	CLIMBING(1), 
+	CLIMBING(1.0), 
 	DIVING(1.8), 
-	FOOTBALL(1), 
+	FOOTBALL(1.0), 
 	GOLF(2.1), 
-	HANDBALL(1), 
-	HOCKEY(1), 
-	MOUNTAINBIKING(1), 
-	PARKOUR(1);
+	HANDBALL(1.0), 
+	HOCKEY(1.0), 
+	MOUNTAINBIKING(1.0), 
+	PARKOUR(1.0), ;
 	
 	final private double factor;
+	
 
 	private Sports(double factor) {
 		if(factor < 0) {
@@ -25,7 +26,7 @@ public enum Sports {
 	}
 
 	public BigDecimal getFeeFactor()
-	{
+	{		
 		return BigDecimal.valueOf(factor);
 		/* default : 1.0 */
 	}
@@ -36,7 +37,7 @@ public enum Sports {
 		return feePerSports.multiply(BigDecimal.valueOf(factor));
 	// calculate fees depending on sport club ’s feePerSports *feeFactor
 	}
-
+	
 	
 
 	

@@ -1,5 +1,6 @@
 package a01404526;
 
+import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Set;
@@ -17,14 +18,15 @@ public class Member implements Comparable<Member> {
 	}
 
 	public Member(String name, Map<Sports, Level> sportsLevelMap) {
-		this.name = name;  //tu preuzima ovaj name iz ovog konstruktura a trebao bi iz konstruktora na liniji 11 ??!?!?
-		this.sports = sportsLevelMap;
-		
-		if(sportsLevelMap.isEmpty()) {
+
+		if (sportsLevelMap.isEmpty() || sportsLevelMap == null) {
 			throw new IllegalArgumentException("sportsLevelMap is empty");
-		}	
+		}
+
+		this.name = name;
+		this.sports = sportsLevelMap;
 // delegate to this constructor ( String )
-// throws IllegalArgumentException if sportsLevelMap is null , emptyor contains null - values .
+// throws IllegalArgumentException if sportsLevelMap is null , empty or contains null - values .
 // set this . sports to a _copy_ ( shallow ) of sportsLevelMap
 	}
 
@@ -39,12 +41,32 @@ public class Member implements Comparable<Member> {
 		 */}
 
 	public Set<Sports> getBillableSports() {
-		return null;/* return set of all sports */
+
+		Set<Sports> billableSports = null;
+
+		for (Sports allSports : getSports().keySet()) {
+			billableSports.add(allSports);
+		}
+		return billableSports;
+		/* return set of all sports */
 	}
 
 	public Level learn(Sports newSports, Level newLevel) {
+
+		if (newLevel.getMappedName().equals(null)) {
+			//newLevel.setMappedName("Anfänger");
+			this.sports.put(newSports, newLevel);
+			return Level.BEGINNER;
+		}
+		
+//		if(newLevel.ordinal()  ) {
+//			
+//		}
+		
+		
+
 		return newLevel;
-// get the member ’s currentLevel of newSports within this . sports
+// get the member ’s currentLevel of newSports within this.sports
 // 1) if there is no currentLevel (i.e. null ) ( meaning the Member hasn ’t practised the sports yet )
 //, put ( newSports , Level .BEGINNER ) to this . sports Map and return Level . BEGINNER
 // 2) if the difference between newLevel and currentLevel isgreater than or equal to 1 ( meaning the Member tries a)
@@ -55,8 +77,8 @@ public class Member implements Comparable<Member> {
 	@Override
 	public String toString() {
 
-		//return name;
-		return this.name + ": %s, " + this.sports + ": %s";
+		// return name;
+		return this.name + " : %s, " + this.sports + " : %s";
 // format : " name : %s, sports : %s"
 	}
 
@@ -65,14 +87,13 @@ public class Member implements Comparable<Member> {
 
 		int compareTo = this.getName().compareTo(member.getName());
 		return compareTo;
-		
-		//System.out.println(compareTo);
-		
+
+		// System.out.println(compareTo);
+
 		// return compareTo(this.getName(), member.getName());
 		/*
 		 * compare names ( case sensitive )
 		 */}
-
 
 	@Override
 	public boolean equals(Object obj) {
