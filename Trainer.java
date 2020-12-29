@@ -1,7 +1,8 @@
-package a01404526;
+package a01563679;
 
 import java.util.Map;
 import java.util.Set;
+import java.util.HashMap;
 
 public class Trainer extends Member {
 	private Map<Sports, Level> accreditations;
@@ -20,9 +21,34 @@ public class Trainer extends Member {
 		 * returns a _copy_ ( shallow ) of this . accreditations
 		 */}
 
+	@SuppressWarnings("unlikely-arg-type")
 	@Override
 	public Set<Sports> getBillableSports() {
-		return null;
+		
+	Set<Sports> billableSports = super.getBillableSports();	
+		
+/*	if(accreditations.containsKey(Sports.class)) {
+		
+		
+	}
+*/
+/*	
+	for (Map.Entry<Sports, Level> kurac : accreditations.entrySet()) {
+	    if(!accreditations.containsKey(Sports.class)){
+	    	balijaSports.add(kurac);
+	  }
+	}
+	
+*/
+	for (Sports sports : billableSports) {
+	if(billableSports.contains(accreditations)) {
+		billableSports.remove(accreditations);
+	  }	
+	}
+	
+	return billableSports;
+		
+		
 // get billable sports of super (i.e. shallow copy !) and remove all sports that are contained within accreditations ,
 // i.e. trainers don ’t have to pay for the sports they are offering
 // return billable sports for this trainer
@@ -30,7 +56,7 @@ public class Trainer extends Member {
 
 	@Override
 	public String toString() {
-		return super.toString() + "," + this.accreditations + ": %s";
+		return super.toString() + ", " + this.accreditations + " : %s";
 // format : super ’s toString () + " , accreditations : %s"
 	}
 }

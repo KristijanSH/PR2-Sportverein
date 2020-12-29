@@ -47,17 +47,64 @@ public class SportsClub {
 		Set<Sports> sportsSet = offeredSports.keySet();
 		return sportsSet;
 		/* return set of offered sports */}
-
+/*
 public BigDecimal calculateMembershipFee ( Member member ) {
+	if(!this.members.contains(member))
+		throw new IllegalArgumentException("member nema membera");
+	
+	Set<Sports> billableSports = member.getBillableSports();
+	Set<Sports> nesto = null;
+	
+	for (Sports sports : billableSports) {
+		if(billableSports.contains(this.offeredSports)) {
+			nesto.add(sports);
+		}
+	}
+	
+	for (Sports sports2 : nesto) {
+		sports2.getFee();
+	}
+	
 	return feePerSports;
 // throw IllegalArgumentException if member is no member of thissports club
+	
 // get member ’s billable sports and filter the member ’s billablesports according to this . offeredSports
-// i.e. the sports club is only allowed to bill sports that areoffered
-// based on the filtered sports list , return accumulated feesusing Sports . getFee ( BigDecimal ) method using this . feePerSports
+// i.e. the sports club is only allowed to bill sports that are offered
+	
+// based on the filtered sports list , return accumulated fee susing Sports . getFee ( BigDecimal ) method using this . feePerSports
 }
-
-public boolean registerSports ( Member member , Sports sports , Level
-level ) {
+*/
+	public BigDecimal calculateMembershipFee ( Member member ) {
+		if(!this.members.contains(member))
+			throw new IllegalArgumentException("member nema membera");
+		
+		Set<Sports> billableSports = member.getBillableSports();
+		Set<Sports> nesto = null;
+		BigDecimal fee;
+		
+		for (Sports sports : billableSports) {
+			if(billableSports.contains(this.offeredSports)) {
+				nesto.add(sports);
+			}
+		}
+		
+		for (Sports sports2 : nesto) {
+		//	fee = sports2.getFee(feePerSports);
+			fee = fee.add(feesports2.getFee(feePerSports));
+			
+		return getFee(fee);
+		}
+		
+		return fee;
+	// throw IllegalArgumentException if member is no member of thissports club
+		
+	// get member ’s billable sports and filter the member ’s billablesports according to this . offeredSports
+	// i.e. the sports club is only allowed to bill sports that are offered
+		
+	// based on the filtered sports list , return accumulated fee susing Sports . getFee ( BigDecimal ) method using this . feePerSports
+	}
+	
+public boolean registerSports ( Member member , Sports sports , Level level ) {
 	return false;
 // throw IllegalArgumentException if member is no member of this sports club
 // register a member for a sports course for a specific level :
@@ -67,12 +114,21 @@ level ) {
 }
 
 public boolean addMember ( Member member ) {
-	return false;
+/*	boolean added = false;
+	//Member trainer = new Member();
+	
+	if(member instanceof Trainer) {
+		offeredSports.put(member.getAccreditations().getKey(), );
+		
+		added = true;
+	}
+	
+	return added;
 // if the member is a Trainer ( check using ’ instanceof ’ keyword )
-// add the trainer ’s accreditations to the sport club ’sofferedSports map , adding the trainer to the Set ( value ) of themap.
+// add the trainer ’s accreditations to the sport club ’sofferedSports map , adding the trainer to the Set ( value ) of the map.
 // return whether the member was added to the this . members set ornot
 }
-
+*/
 public boolean removeMember ( Member member ) {
 	return false;
 // if the member is a Trainer ( check using ’ instanceof ’ keyword )
