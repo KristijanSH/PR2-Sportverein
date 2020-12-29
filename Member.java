@@ -53,21 +53,25 @@ public class Member implements Comparable<Member> {
 
 	public Level learn(Sports newSports, Level newLevel) {
 
-		if (newLevel.getMappedName().equals(null)) {
-			//newLevel.setMappedName("Anfänger");
+		/*if (newLevel.getMappedName().equals(null)) {
+			//newLevel.setMappedName("Anfnger");
 			this.sports.put(newSports, newLevel);
-			return Level.BEGINNER;
 		}
 		
-//		if(newLevel.ordinal()  ) {
-//			
-//		}
+		 */
 		
-		
-
+		Level result = this.sports.get(newSports);
+		if (result != null){
+			this.sports.replace(newSports,a01404526.Level.BEGINNER);
+			return a01404526.Level.BEGINNER;
+		}
+		else if(!(result.compareTo(newLevel) >= 1)){
+			this.sports.replace(newSports,newLevel);
+			return newLevel;
+		}
 		return newLevel;
-// get the member ’s currentLevel of newSports within this.sports
-// 1) if there is no currentLevel (i.e. null ) ( meaning the Member hasn ’t practised the sports yet )
+// get the member s currentLevel of newSports within this.sports
+// 1) if there is no currentLevel (i.e. null ) ( meaning the Member hasn t practised the sports yet )
 //, put ( newSports , Level .BEGINNER ) to this . sports Map and return Level . BEGINNER
 // 2) if the difference between newLevel and currentLevel isgreater than or equal to 1 ( meaning the Member tries a)
 //to learn the sports way above his/her skills or b) the correctnext level ) put ( newSports , currentLevel . next ()) to this . sportsMap and return the inserted level
