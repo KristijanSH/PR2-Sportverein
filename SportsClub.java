@@ -1,8 +1,10 @@
 package a01404526;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -11,6 +13,7 @@ public class SportsClub {
 	private BigDecimal feePerSports;
 	private Set<Member> members = new LinkedHashSet<>();
 	private Map<Sports, Set<Trainer>> offeredSports = new LinkedHashMap<>();
+
 
 	public SportsClub(String name, BigDecimal feePerSports) {
 		
@@ -74,25 +77,30 @@ public BigDecimal calculateMembershipFee ( Member member ) {
 // based on the filtered sports list , return accumulated fee susing Sports . getFee ( BigDecimal ) method using this . feePerSports
 }
 */
+	@SuppressWarnings("null")
 	public BigDecimal calculateMembershipFee ( Member member ) {
+		
+
+		
+		
 		if(!this.members.contains(member))
 			throw new IllegalArgumentException("member nema membera");
 		
 		Set<Sports> billableSports = member.getBillableSports();
 		Set<Sports> nesto = null;
-		BigDecimal fee;
+		BigDecimal fee = null;
 		
 		for (Sports sports : billableSports) {
 			if(billableSports.contains(this.offeredSports)) {
-				nesto.add(sports);
+				nesto.add(sports); //pogledaj da li ce ovo biti NULL kod testiranja 
 			}
 		}
 		
 		for (Sports sports2 : nesto) {
 		//	fee = sports2.getFee(feePerSports);
-			fee = fee.add(feesports2.getFee(feePerSports));
+			fee = fee.add(sports2.getFee(feePerSports));
 			
-		return getFee(fee);
+		//return Sports.getFee(fee);
 		}
 		
 		return fee;
@@ -105,35 +113,84 @@ public BigDecimal calculateMembershipFee ( Member member ) {
 	}
 	
 public boolean registerSports ( Member member , Sports sports , Level level ) {
-	return false;
+	
+	if(!this.members.contains(member))
+		throw new IllegalArgumentException("member nema membera");
+	
+	Set<Trainer> trainers = new LinkedHashSet<>();
+	
+	trainers = this.offeredSports.get(sports);
+	
+	if(trainers==null || trainers.isEmpty()) {
+		return false;
+	}
+	
+		boolean result= false;
+		for(Trainer helper :  trainers) {
+			Level trainerLevel = helper.getAccreditations().get(sports);
+			if(trainerLevel.ordinal() >= level.ordinal() ) {
+				member.learn(sports, level);
+				result = true;
+				break;
+			}
+		}
+		
+		return result;
+	
+	
+	
 // throw IllegalArgumentException if member is no member of this sports club
 // register a member for a sports course for a specific level :
-// 1. check whether there is a trainer available for the givensports that has an accreditation greater or equal to level
+// 1. check whether there is a trainer available for the given sports that has an accreditation greater or equal to level
 // 2. return false if there is no trainer available
-// 3. let the member learn the sports using Member . learn (...) andreturn true if he/she was successful to learn at the specifiedlevel , false otherwise
+// 3. let the member learn the sports using Member . learn (...) and return true if he/she was successful to learn at the specified level , false otherwise
 }
 
 public boolean addMember ( Member member ) {
-/*	boolean added = false;
-	//Member trainer = new Member();
+	boolean added = false;
+	
+	Set<Trainer> kurcina = new LinkedHashSet<>();
+	Map<Sports, Level> pickica = new LinkedHashMap<>();
 	
 	if(member instanceof Trainer) {
-		offeredSports.put(member.getAccreditations().getKey(), );
 		
+		kurcina.add((Trainer) member);
+		pickica = ((Trainer) member).getAccreditations();
+		
+		List<Sports> sisa = new ArrayList<>();
+		
+		for(Sports key : pickica.keySet()) {
+			sisa.add(key);
+		}
+		
+		for(Sports key2 : sisa) {
+			Set<Trainer> klitoris = new LinkedHashSet<>();
+			
+			klitoris = offeredSports.get(key2);
+			if(klitoris!=null) {
+				klitoris.add((Trainer) member);
+				offeredSports.put(key2, klitoris);
+			}			
+		}
+
 		added = true;
 	}
 	
 	return added;
+	
+	
+
 // if the member is a Trainer ( check using ’ instanceof ’ keyword )
-// add the trainer ’s accreditations to the sport club ’sofferedSports map , adding the trainer to the Set ( value ) of the map.
-// return whether the member was added to the this . members set ornot
+// add the trainer ’s accreditations to the sport club’s offeredSports map , adding the trainer to the Set ( value ) of the map.
+// return whether the member was added to the this . members set or not
+
 }
-*/
+
 public boolean removeMember ( Member member ) {
 	return false;
 // if the member is a Trainer ( check using ’ instanceof ’ keyword )
 // - remove the trainer from the sport club ’s offeredSports -Map (Values )
-// - if the trainer was the only Trainer for a sports , remove thekey from the offeredSports
+// - if the trainer was the only Trainer for a sports , remove the key from the offeredSports
 // return true if the member was successfully removed from this .members
 }
 

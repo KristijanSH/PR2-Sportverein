@@ -1,4 +1,4 @@
-package a01563679;
+package a01404526;
 
 import java.util.Map;
 import java.util.Set;
@@ -7,6 +7,7 @@ import java.util.HashMap;
 public class Trainer extends Member {
 	private Map<Sports, Level> accreditations;
 
+  
 	
 	public Trainer(String name, Map<Sports, Level> accreditations) {
 		super(name, accreditations);
@@ -41,9 +42,12 @@ public class Trainer extends Member {
 	
 */
 	for (Sports sports : billableSports) {
-	if(billableSports.contains(accreditations)) {
-		billableSports.remove(accreditations);
-	  }	
+		if(accreditations.containsValue(sports)) {
+		accreditations.remove(sports);
+		}
+//	if(billableSports.contains(accreditations)) {
+//		billableSports.remove(accreditations);
+//	  }	
 	}
 	
 	return billableSports;
