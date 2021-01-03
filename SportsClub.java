@@ -2,6 +2,7 @@ package a01563679;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
@@ -34,14 +35,16 @@ public class SportsClub {
 
 	public String getName() {
 		return name;
-		/* return name */}
+		}
 
 	public BigDecimal getFeePerSports() {
 		return feePerSports;
-		/* return feePerSports */}
+		}
 
 	public Set<Member> getMembers() {
-		return members;
+		Set<Member> fukare = new HashSet<Member>(members);
+		
+		return fukare;
 		/*
 		 * return _copy_ ( shallow ) of members
 		 */}
@@ -49,56 +52,32 @@ public class SportsClub {
 	public Set<Sports> getSports() {
 		Set<Sports> sportsSet = offeredSports.keySet();
 		return sportsSet;
-		/* return set of offered sports */}
-/*
-public BigDecimal calculateMembershipFee ( Member member ) {
-	if(!this.members.contains(member))
-		throw new IllegalArgumentException("member nema membera");
-	
-	Set<Sports> billableSports = member.getBillableSports();
-	Set<Sports> nesto = null;
-	
-	for (Sports sports : billableSports) {
-		if(billableSports.contains(this.offeredSports)) {
-			nesto.add(sports);
 		}
-	}
-	
-	for (Sports sports2 : nesto) {
-		sports2.getFee();
-	}
-	
-	return feePerSports;
-// throw IllegalArgumentException if member is no member of thissports club
-	
-// get member ’s billable sports and filter the member ’s billablesports according to this . offeredSports
-// i.e. the sports club is only allowed to bill sports that are offered
-	
-// based on the filtered sports list , return accumulated fee susing Sports . getFee ( BigDecimal ) method using this . feePerSports
-}
-*/
-	@SuppressWarnings("null")
+
+
 	public BigDecimal calculateMembershipFee ( Member member ) {
 		
-
 		if(!this.members.contains(member))
 			throw new IllegalArgumentException("member nema membera");
 		
-		Set<Sports> billableSports = member.getBillableSports();
-		Set<Sports> nesto = null;
-		BigDecimal fee = null;
+		Set<Sports> billableSports = new HashSet<>(); //member.getBillableSports();
+		billableSports = member.getBillableSports();
+		Set<Sports> nesto = new HashSet<>();
+		BigDecimal fee = new BigDecimal(0);
 		
 		for (Sports sports : billableSports) {
 			if(billableSports.contains(this.offeredSports)) {
+		//	if(offeredSports.keySet().equals(billableSports)) {
 				nesto.add(sports); //pogledaj da li ce ovo biti NULL kod testiranja 
 			}
 		}
 		
 		for (Sports sports2 : nesto) {
-		//	fee = sports2.getFee(feePerSports);
+//			BigDecimal patka = new BigDecimal("10.00"); 
+			
+			
 			fee = fee.add(sports2.getFee(feePerSports));
 			
-		//return Sports.getFee(fee);
 		}
 		
 		return fee;
@@ -150,11 +129,19 @@ public boolean addMember ( Member member ) {
 	Set<Trainer> kurcina = new LinkedHashSet<>();
 	Map<Sports, Level> pickica = new LinkedHashMap<>();
 	Set<Trainer> klitoris = new LinkedHashSet<>();
+	
+	for (Member member2 : members) {
+		if(members.contains(member2))
+			return false;
+	}
+	
 	if(member instanceof Trainer) {
 		
 		kurcina.add((Trainer) member);
 		pickica = ((Trainer) member).getAccreditations();
 		
+		
+		members.add(member);
 		List<Sports> sisa = new ArrayList<>();
 		
 		for(Sports key : pickica.keySet()) {
@@ -170,6 +157,9 @@ public boolean addMember ( Member member ) {
 			}			
 		}
 
+		added = true;
+	} else {
+		members.add(member);
 		added = true;
 	}
 	

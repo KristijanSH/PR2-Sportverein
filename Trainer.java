@@ -3,6 +3,7 @@ package a01563679;
 import java.util.Map;
 import java.util.Set;
 import java.util.HashMap;
+import java.util.HashSet;
 
 public class Trainer extends Member {
 	private Map<Sports, Level> accreditations;
@@ -11,18 +12,21 @@ public class Trainer extends Member {
 	
 	public Trainer(String name, Map<Sports, Level> accreditations) {
 		super(name, accreditations);
-		this.accreditations = accreditations;
+		Map<Sports, Level> kurcina = new HashMap<Sports, Level>(accreditations);
+		this.accreditations = kurcina;
 // delegate to super constructor (String , Map <Sports ,Level >)
 // set this . accreditations to a _copy_ ( shallow ) of accreditations argument
 	}
 
 	public Map<Sports, Level> getAccreditations() {
-		return this.accreditations;
+		Map<Sports, Level> accred = new HashMap<Sports, Level>(accreditations);
+		// accred = this.accreditations;
+		return accred;
 		/*
 		 * returns a _copy_ ( shallow ) of this . accreditations
 		 */}
 
-	@SuppressWarnings("unlikely-arg-type")
+
 	@Override
 	public Set<Sports> getBillableSports() {
 		
@@ -42,8 +46,8 @@ public class Trainer extends Member {
 	
 */
 	for (Sports sports : billableSports) {
-		if(accreditations.containsValue(sports)) {
-		accreditations.remove(sports);
+		if(accreditations.containsKey(sports)) {
+			billableSports.remove(sports);
 		}
 //	if(billableSports.contains(accreditations)) {
 //		billableSports.remove(accreditations);

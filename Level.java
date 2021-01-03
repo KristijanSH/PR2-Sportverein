@@ -24,23 +24,31 @@ public enum Level {
 
 	public Level next() {
 
-		for (Level nextLevel : Level.values()) {
-
-			if (nextLevel.equals(BEGINNER)) {
-				return nextLevel.next();
-			}
-			if (nextLevel.equals(NORMAL)) {
-				return nextLevel.next();
-			}
-			if (nextLevel.equals(ADVANCED)) {
-				return nextLevel.next();
-			}
-			if (nextLevel.equals(PROFESSIONAL)) {
-				return nextLevel;
+//		for (Level nextLevel : Level.values()) {
+//
+//			if (nextLevel.equals(BEGINNER)) {
+//				return nextLevel.next();
+//			}
+//			if (nextLevel.equals(NORMAL)) {
+//				return nextLevel.next();
+//			}
+//			if (nextLevel.equals(ADVANCED)) {
+//				return nextLevel.next();
+//			}
+//			if (nextLevel.equals(PROFESSIONAL)) {
+//				return nextLevel;
+//			}
+//		}
+//		return this;
+		
+		int ovaj = this.ordinal();
+		int i = 0;
+		for(Level l : Level.values()) {
+			if(ovaj < i++) {
+				return l;
 			}
 		}
-		return null;
-
+		return this;
 		// returns next level , last level if no further levels left ( hint : this .
 		// ordinal () , Level . values ())
 	}

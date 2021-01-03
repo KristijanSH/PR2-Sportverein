@@ -1,7 +1,7 @@
 package a01563679;
 
+import java.util.Collection;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Set;
@@ -35,7 +35,7 @@ public class Member implements Comparable<Member> {
 //		}
 
 		this.name = name;
-		this.sports = sportsLevelMap;
+		this.sports.putAll(sportsLevelMap);
 // delegate to this constructor ( String )
 // throws IllegalArgumentException if sportsLevelMap is null , empty or contains null - values .
 // set this . sports to a _copy_ ( shallow ) of sportsLevelMap
@@ -46,14 +46,17 @@ public class Member implements Comparable<Member> {
 		/* ... */}
 
 	public Map<Sports, Level> getSports() {
-		return sports;
+		Map<Sports, Level> sportovi;
+		 sportovi = this.sports;
+		 return sportovi;
+		 
 		/*
 		 * return a _copy_ ( shallow ) of sports
 		 */}
 
 	public Set<Sports> getBillableSports() {
 
-		Set<Sports> billableSports = new HashSet<>();
+	 Set<Sports> billableSports = new HashSet<>();
 
 		for (Sports allSports : getSports().keySet()) {
 			billableSports.add(allSports);
@@ -81,22 +84,23 @@ public class Member implements Comparable<Member> {
 //			return newLevel;
 //		}
 //		return newLevel;
+		Level currentLvl = this.sports.get(newSports);
 		
 		if(newSports == null || newLevel == null) {
 			throw new IllegalArgumentException();
 		}
 		
+//		if(!this.sports.containsKey(newSports)) {
+//			this.sports.put(newSports, Level.BEGINNER);
+//			return Level.BEGINNER;
+//		}
+//		
 		if(!this.sports.containsKey(newSports)) {
 			this.sports.put(newSports, Level.BEGINNER);
 			return Level.BEGINNER;
 		}
-//		
-//		if (newLevel.getMappedName().equals(null)) {
-//			newLevel.setMappedName("Anfnger");
-//			this.sports.put(newSports, newLevel);
-//		}
 		
-		Level currentLvl = this.sports.get(newSports);
+	//	Level currentLvl = this.sports.get(newSports);
 		Level nextLvl = currentLvl.next();
 		
 		while (true) {
@@ -124,7 +128,7 @@ public class Member implements Comparable<Member> {
 	@Override
 	public String toString() {
 
-		return " name: " + this.name + ", " + " sports: " + this.sports;
+		return "name: " + this.name + ", " + " sports: " + this.sports;
 // format : " name : %s, sports : %s"
 	}
 
