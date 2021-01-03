@@ -1,4 +1,4 @@
-package a01404526;
+package a01563679;
 
 import java.util.Map;
 import java.util.Set;
@@ -60,7 +60,7 @@ public class Trainer extends Member {
 
 	@Override
 	public String toString() {
-		return super.toString() + ", " + this.accreditations + " : %s";
+		return super.toString() + ", " + "accreditations: " + this.accreditations;
 // format : super ’s toString () + " , accreditations : %s"
 	}
 }

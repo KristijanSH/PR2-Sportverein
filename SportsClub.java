@@ -1,4 +1,4 @@
-package a01404526;
+package a01563679;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -17,7 +17,7 @@ public class SportsClub {
 
 	public SportsClub(String name, BigDecimal feePerSports) {
 		
-		if(name.isEmpty() || name == null) {
+		if(name == null || name.isEmpty()) {
 			throw new IllegalArgumentException ("Name is empty or null");
 		}
 		if(feePerSports == null) {
@@ -81,8 +81,6 @@ public BigDecimal calculateMembershipFee ( Member member ) {
 	public BigDecimal calculateMembershipFee ( Member member ) {
 		
 
-		
-		
 		if(!this.members.contains(member))
 			throw new IllegalArgumentException("member nema membera");
 		
@@ -151,7 +149,7 @@ public boolean addMember ( Member member ) {
 	
 	Set<Trainer> kurcina = new LinkedHashSet<>();
 	Map<Sports, Level> pickica = new LinkedHashMap<>();
-	
+	Set<Trainer> klitoris = new LinkedHashSet<>();
 	if(member instanceof Trainer) {
 		
 		kurcina.add((Trainer) member);
@@ -164,10 +162,9 @@ public boolean addMember ( Member member ) {
 		}
 		
 		for(Sports key2 : sisa) {
-			Set<Trainer> klitoris = new LinkedHashSet<>();
 			
 			klitoris = offeredSports.get(key2);
-			if(klitoris!=null) {
+			if(!klitoris.isEmpty()) {
 				klitoris.add((Trainer) member);
 				offeredSports.put(key2, klitoris);
 			}			
@@ -187,7 +184,14 @@ public boolean addMember ( Member member ) {
 }
 
 public boolean removeMember ( Member member ) {
-	return false;
+	boolean removed = false;
+	
+//	if(member instanceof Trainer) {
+//		
+//		
+//	}
+	
+	return removed;
 // if the member is a Trainer ( check using ’ instanceof ’ keyword )
 // - remove the trainer from the sport club ’s offeredSports -Map (Values )
 // - if the trainer was the only Trainer for a sports , remove the key from the offeredSports
@@ -196,7 +200,6 @@ public boolean removeMember ( Member member ) {
 
 @Override
 public String toString () {
-	return name;
-// format : SportsClub [ name : %s, feePerSports : %s, offeredSports : %s]
+	return "SportsClub [" +this.name + ", feePerSports: " + feePerSports + ", offeredSports: " + offeredSports + "]";
 }
 }

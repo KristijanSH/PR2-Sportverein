@@ -1,6 +1,7 @@
-package a01404526;
+package a01563679;
 
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Set;
@@ -17,11 +18,21 @@ public class Member implements Comparable<Member> {
 		this.name = name;
 	}
 
+//	@SuppressWarnings("unlikely-arg-type")
 	public Member(String name, Map<Sports, Level> sportsLevelMap) {
-
-		if (sportsLevelMap.isEmpty() || sportsLevelMap == null) {
+		
+		if (sportsLevelMap == null  || sportsLevelMap.isEmpty()) {
 			throw new IllegalArgumentException("sportsLevelMap is empty");
 		}
+		
+		for(Map.Entry<Sports, Level> entry : sportsLevelMap.entrySet()) {
+			if (entry.getValue() == null || entry.getKey() == null) {
+			throw new IllegalArgumentException("sportsLevelMap is empty");
+		}
+		}
+//		if (!sportsLevelMap.containsKey(sports) /*containsValue(null)*/) {
+//			throw new IllegalArgumentException("sportsLevelMap is empty");
+//		}
 
 		this.name = name;
 		this.sports = sportsLevelMap;
@@ -42,7 +53,7 @@ public class Member implements Comparable<Member> {
 
 	public Set<Sports> getBillableSports() {
 
-		Set<Sports> billableSports = null;
+		Set<Sports> billableSports = new HashSet<>();
 
 		for (Sports allSports : getSports().keySet()) {
 			billableSports.add(allSports);
@@ -60,29 +71,60 @@ public class Member implements Comparable<Member> {
 		
 		 */
 		
-		Level result = this.sports.get(newSports);
-		if (result != null){
-			this.sports.replace(newSports,a01404526.Level.BEGINNER);
-			return a01404526.Level.BEGINNER;
+//		Level result = this.sports.get(newSports);
+//		if (result != null){
+//			this.sports.replace(newSports, Level.BEGINNER);
+//			return Level.BEGINNER;
+//		}
+//		else if(!(result.compareTo(newLevel) >= 1)){
+//			this.sports.replace(newSports,newLevel);
+//			return newLevel;
+//		}
+//		return newLevel;
+		
+		if(newSports == null || newLevel == null) {
+			throw new IllegalArgumentException();
 		}
-		else if(!(result.compareTo(newLevel) >= 1)){
-			this.sports.replace(newSports,newLevel);
-			return newLevel;
+		
+		if(!this.sports.containsKey(newSports)) {
+			this.sports.put(newSports, Level.BEGINNER);
+			return Level.BEGINNER;
 		}
-		return newLevel;
+//		
+//		if (newLevel.getMappedName().equals(null)) {
+//			newLevel.setMappedName("Anfnger");
+//			this.sports.put(newSports, newLevel);
+//		}
+		
+		Level currentLvl = this.sports.get(newSports);
+		Level nextLvl = currentLvl.next();
+		
+		while (true) {
+			if (nextLvl == newLevel) {
+				this.sports.put(newSports, currentLvl.next());
+				return currentLvl.next();
+			}
+			if (nextLvl == Level.PROFESSIONAL) {
+				this.sports.put(newSports, currentLvl);
+				return currentLvl;
+			}
+			
+				nextLvl = nextLvl.next();
+		}
+		
 // get the member s currentLevel of newSports within this.sports
 // 1) if there is no currentLevel (i.e. null ) ( meaning the Member hasn t practised the sports yet )
 //, put ( newSports , Level .BEGINNER ) to this . sports Map and return Level . BEGINNER
 // 2) if the difference between newLevel and currentLevel isgreater than or equal to 1 ( meaning the Member tries a)
 //to learn the sports way above his/her skills or b) the correctnext level ) put ( newSports , currentLevel . next ()) to this . sportsMap and return the inserted level
 // 3) otherwise return the currentLevel
+
 	}
 
 	@Override
 	public String toString() {
 
-		// return name;
-		return this.name + " : %s, " + this.sports + " : %s";
+		return " name: " + this.name + ", " + " sports: " + this.sports;
 // format : " name : %s, sports : %s"
 	}
 
