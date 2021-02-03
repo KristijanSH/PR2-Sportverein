@@ -1,61 +1,35 @@
 package a01563679;
 
 public enum Level {
-
+/*
+    BEGINNER("Anfaenger"),
+    NORMAL("Normal"),
+    ADVANCED("Fortgeschritten"),
+    PROFESSIONAL("Profi"){
+            public String toString() {
+                    return "*"+super.toString()+"*";
+            }
+    };
+*/
 	BEGINNER("Anfänger"), NORMAL("Normal"), ADVANCED("Fortgeschritten"), PROFESSIONAL("Profi");
 
-	String mappedName;
+    String m;
+   // private static int c = 0;
 
-	private Level(String name) {
-		if (name.equals("Anfänger") || name.equals("Normal") || name.equals("Fortgeschritten")
-				|| name.equals("Profi")) {
-			this.mappedName = name;
-		}
-	}
+    private Level(String s) {
+            m = s;
+    }
 
-	public String getMappedName() {
-		return mappedName;
-	}
-
-	public void setMappedName(String mappedName) {
-		this.mappedName = mappedName;
-	}
-	// constructor ( check for valid values !) + getter
-
-	public Level next() {
-
-//		for (Level nextLevel : Level.values()) {
-//
-//			if (nextLevel.equals(BEGINNER)) {
-//				return nextLevel.next();
-//			}
-//			if (nextLevel.equals(NORMAL)) {
-//				return nextLevel.next();
-//			}
-//			if (nextLevel.equals(ADVANCED)) {
-//				return nextLevel.next();
-//			}
-//			if (nextLevel.equals(PROFESSIONAL)) {
-//				return nextLevel;
-//			}
-//		}
-//		return this;
-		
-		int ovaj = this.ordinal();
-		int i = 0;
-		for(Level l : Level.values()) {
-			if(ovaj < i++) {
-				return l;
-			}
-		}
-		return this;
-		// returns next level , last level if no further levels left ( hint : this .
-		// ordinal () , Level . values ())
-	}
-
-	@Override
+    public Level next() {
+            return Level.values().length-1 != this.ordinal()?Level.values()[this.ordinal()+1]:this;
+    }
+    /*
+    public String toString() {
+            return m +"("+ ++c +")";
+    }
+    */
+    @Override
 	public String toString() {
-		return mappedName;
+		return m;
 	}
-
 }

@@ -1,5 +1,5 @@
+// insert your package here
 package a01563679;
-
 import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.Map;
@@ -7,19 +7,12 @@ import java.util.Map;
 public class Main {
 
 	public static void main(String[] args) {
-		//testMemberCreation();	//radi
-		//testMemberMethods();	// radi 
-		//testTrainerCreation();	//radi
-		//testTrainerMethods();	// radi 
-		//testSportsClubCreation(); //radi
-		testSportsClubMethods();	//radi getter, 
-		
-//		System.out.println("prazno");
-//		
-//		Map<String, String> kurcina = new LinkedHashMap<>();
-//		System.out.println("kurcina: " + kurcina);
-//		kurcina.put("robi", "suki");
-//		System.out.println("kurcina2: " + kurcina);
+		testMemberCreation();
+		testMemberMethods();
+		testTrainerCreation();
+		testTrainerMethods();
+		testSportsClubCreation();
+		testSportsClubMethods();
 	}
 
 	private static void testMemberCreation() {
@@ -88,12 +81,12 @@ public class Main {
 		//test getter
 		System.out.println("\n--------GETTER--------");
 		System.out.println(anna.getName());
-		System.out.println(anna.getBillableSports());	//jel bitan redoslijed? A-C-B ? C-A-B
+		System.out.println(anna.getBillableSports());
 		System.out.println(anna.getSports());
 		// check shallow copy
 		System.out.println(anna.getSports().remove(Sports.BASKETBALL));
 		System.out.println(anna.getSports().remove(Sports.CLIMBING));
-		System.out.println(anna.getSports().size() == 3);	// == 1 ?
+		System.out.println(anna.getSports().size() == 3);
 
 		//test compare methods
 		System.out.println("\n--------COMPARE--------");
@@ -173,7 +166,7 @@ public class Main {
 		System.out.println(anna);
 		System.out.println(anna.learn(Sports.ARCHERY, Level.PROFESSIONAL));
 		System.out.println(anna);
-		
+
 		//test getter
 		System.out.println(anna.getAccreditations());
 		System.out.println(anna.getBillableSports());
@@ -248,19 +241,18 @@ public class Main {
 		}
 
 		//test addMember() and calculateMembershipFee()
-//		System.out.println("\n--------addMember calculateMembershipFee--------");
-//		System.out.println(hinterdupfingen.addMember(paul));
-//		System.out.println(hinterdupfingen.addMember(paul));
-//		System.out.println(hinterdupfingen);
-//		System.out.println(hinterdupfingen.calculateMembershipFee(paul));
-//		System.out.println(hinterdupfingen.addMember(anna));	//
-//		System.out.println(hinterdupfingen);
-//		System.out.println(hinterdupfingen.calculateMembershipFee(paul));
-//		System.out.println(hinterdupfingen.calculateMembershipFee(anna));	//
-//
-//		// shallow copy
-//		System.out.println(hinterdupfingen.getMembers().remove(anna));
-//		System.out.println(hinterdupfingen.getMembers().size() == 2);
+		System.out.println("\n--------addMember calculateMembershipFee--------");
+		System.out.println(hinterdupfingen.addMember(paul));
+		System.out.println(hinterdupfingen.addMember(paul));
+		System.out.println(hinterdupfingen);
+		System.out.println(hinterdupfingen.calculateMembershipFee(paul));
+		System.out.println(hinterdupfingen.addMember(anna));
+		System.out.println(hinterdupfingen);
+		System.out.println(hinterdupfingen.calculateMembershipFee(paul));
+		System.out.println(hinterdupfingen.calculateMembershipFee(anna));
+		// shallow copy
+		System.out.println(hinterdupfingen.getMembers().remove(anna));
+		System.out.println(hinterdupfingen.getMembers().size() == 2);
 
 		//test registerSports()
 		System.out.println("\n--------registerSports--------");
@@ -273,14 +265,14 @@ public class Main {
 		System.out.println(finn);
 
 		//test removeMember()
-//		System.out.println("\n--------removeMember--------");
-//		System.out.println(hinterdupfingen.removeMember(paul));
-//		System.out.println(hinterdupfingen.removeMember(paul));
-//		System.out.println(hinterdupfingen);
-//		System.out.println(hinterdupfingen.getMembers());
-//		System.out.println(hinterdupfingen.removeMember(anna));
-//		System.out.println(hinterdupfingen);
-//		System.out.println(hinterdupfingen.getMembers());
+		System.out.println("\n--------removeMember--------");
+		System.out.println(hinterdupfingen.removeMember(paul));
+		System.out.println(hinterdupfingen.removeMember(paul));
+		System.out.println(hinterdupfingen);
+		System.out.println(hinterdupfingen.getMembers());
+		System.out.println(hinterdupfingen.removeMember(anna));
+		System.out.println(hinterdupfingen);
+		System.out.println(hinterdupfingen.getMembers());
 
 		/*
 		 * EXPECTED OUTPUT:
@@ -323,4 +315,3 @@ public class Main {
 	}
 
 }
-

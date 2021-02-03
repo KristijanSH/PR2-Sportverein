@@ -4,16 +4,15 @@ import java.util.Map;
 import java.util.Set;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.LinkedHashSet;
 
 public class Trainer extends Member {
 	private Map<Sports, Level> accreditations;
 
-  
-	
 	public Trainer(String name, Map<Sports, Level> accreditations) {
 		super(name, accreditations);
-		Map<Sports, Level> kurcina = new HashMap<Sports, Level>(accreditations);
-		this.accreditations = kurcina;
+		Map<Sports, Level> accredCpy = new HashMap<Sports, Level>(accreditations);
+		this.accreditations = accredCpy;
 // delegate to super constructor (String , Map <Sports ,Level >)
 // set this . accreditations to a _copy_ ( shallow ) of accreditations argument
 	}
@@ -22,41 +21,22 @@ public class Trainer extends Member {
 		Map<Sports, Level> accred = new HashMap<Sports, Level>(accreditations);
 		// accred = this.accreditations;
 		return accred;
-		/*
-		 * returns a _copy_ ( shallow ) of this . accreditations
-		 */}
-
+		// returns a _copy_ ( shallow ) of this . accreditations
+	}
 
 	@Override
 	public Set<Sports> getBillableSports() {
-		
-	Set<Sports> billableSports = super.getBillableSports();	
-		
-/*	if(accreditations.containsKey(Sports.class)) {
-		
-		
-	}
-*/
-/*	
-	for (Map.Entry<Sports, Level> kurac : accreditations.entrySet()) {
-	    if(!accreditations.containsKey(Sports.class)){
-	    	balijaSports.add(kurac);
-	  }
-	}
-	
-*/
-	for (Sports sports : billableSports) {
-		if(accreditations.containsKey(sports)) {
-			billableSports.remove(sports);
+		Set<Sports> billableSports = new LinkedHashSet<>();
+		billableSports = super.getBillableSports();
+		Set<Sports> sportsSet = new LinkedHashSet<>();
+
+		for (Sports sportsObject : billableSports) {
+			if (!accreditations.containsKey(sportsObject)) {
+				sportsSet.add(sportsObject);
+			}
 		}
-//	if(billableSports.contains(accreditations)) {
-//		billableSports.remove(accreditations);
-//	  }	
-	}
-	
-	return billableSports;
-		
-		
+
+		return sportsSet;
 // get billable sports of super (i.e. shallow copy !) and remove all sports that are contained within accreditations ,
 // i.e. trainers don ’t have to pay for the sports they are offering
 // return billable sports for this trainer
@@ -64,7 +44,10 @@ public class Trainer extends Member {
 
 	@Override
 	public String toString() {
+//		if(accreditations.values().contains(Level.PROFESSIONAL)) {
+//			return super.toString() + ", " + "accreditations: "  + this.accreditations.keySet()+ "**"+ this.accreditations.values() + "**";
+//		} else {
 		return super.toString() + ", " + "accreditations: " + this.accreditations;
-// format : super ’s toString () + " , accreditations : %s"
+//		}
 	}
 }
